@@ -7,7 +7,6 @@ pdfplumber
 spacy
 logging
 xlwings
-subprocess
 flask
 secrets
 cymem>=2.0.2,<2.1.0
