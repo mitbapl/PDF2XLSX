@@ -5,10 +5,10 @@ pdfplumber
 spacy-legacy>=3.0.11,<3.1.0
 spacy-loggers>=1.0.0,<2.0.0
 spacy>=3.0.0,<4.0.0
+https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.7.3/en_core_web_trf-3.7.3.tar.gz
 logging
 xlwings
 flask
-en_core_web_sm
 cymem>=2.0.2,<2.1.0
 preshed>=3.0.2,<3.1.0
 thinc>=8.2.2,<8.3.0
