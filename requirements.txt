@@ -6,7 +6,6 @@ pandas
 pdfplumber
 spacy
 logging
-sys
 xlwings
 os
 subprocess
