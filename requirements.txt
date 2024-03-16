@@ -8,6 +8,7 @@ spacy
 logging
 xlwings
 flask
+en_core_web_sm
 cymem>=2.0.2,<2.1.0
 preshed>=3.0.2,<3.1.0
 thinc>=8.2.2,<8.3.0
