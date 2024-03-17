@@ -1,2 +1,2 @@
 # PDF2XLSX
-Converting credit report pdf to xlsx
+Converting unstructured pdf to structured xlsx
