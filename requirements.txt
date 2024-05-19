@@ -1,4 +1,5 @@
 # Our libraries
+numpy_financial
 xlsxwriter
 flask
 pandas
