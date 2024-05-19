@@ -1,4 +1,5 @@
 # Our libraries
+xlsxwriter
 flask
 pandas
 pdfplumber
