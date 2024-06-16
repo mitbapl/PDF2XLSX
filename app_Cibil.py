@@ -1,6 +1,7 @@
 import os
 import subprocess
 import flask
+import time
 import secrets
 from flask import Flask, render_template, request, send_file, flash
 
@@ -30,17 +31,39 @@ def convert():
     file_path = os.path.join(upload_dir, file.filename)
     file.save(file_path)
     print(file_path)
-    
-    # Invoke your script with the file path as an argument
-    output_file = subprocess.run(['python', 'CIBILPDFXLSXv3.py', file_path], timeout=9000)
-    print(output_file)
-    #Path to converted excel file
-    converted_file_path = 'extracted_data.xlsx'
 
-    # check xlsx file
-    if not os.path.isfile(converted_file_path):
-        print(f"Converted file not found at: {converted_file_path}")
-        return "Conversion failed"
+    timeout_seconds = 9000
+    max_attempts = 3
+    attempt = 0
+    returncode = None
+
+    while attempt < max_attempts and returncode is None:
+        try:
+            result = subprocess.run(['python', 'CIBILPDFXLSXv3.py', file_path], timeout=timeout_seconds, check=True, capture_output=True)
+            returncode = result.returncode
+            if returncode == 0:
+                converted_file_path = 'extracted_data.xlsx'
+                if os.path.exists(converted_file_path):
+                    print(f"File successfully converted and saved at: {converted_file_path}")
+                else:
+                    print(f"Converted file not found at: {converted_file_path}. Return 'Conversion failed'.")
+            else:
+                print(f"Conversion failed with return code {returncode}.")
+        except subprocess.TimeoutExpired:
+            print(f"Conversion process timed out after {timeout_seconds} seconds. Retrying attempt {attempt + 1}...")
+        except subprocess.CalledProcessError as e:
+            returncode = e.returncode
+            print(f"Conversion failed with error: {e}")
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+    
+        attempt += 1
+        if returncode is None:
+            print(f"Retrying attempt {attempt}...")
+            time.sleep(1)  # Optional: Add a short delay before retrying
+
+    if returncode is None:
+        print(f"Exceeded maximum retry attempts. Conversion failed.")
 
     #download xlsx
     response = send_file(converted_file_path, as_attachment=True)
