@@ -32,7 +32,7 @@ def convert():
     print(file_path)
     
     # Invoke your script with the file path as an argument
-    subprocess.run(['python', 'CIBILPDFXLSXv3.py', file_path])
+    subprocess.run(['python', 'CIBILPDFXLSXv3.py', file_path], timeout=9000)
 
     #Path to converted excel file
     converted_file_path = 'extracted_data.xlsx'
